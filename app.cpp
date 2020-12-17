@@ -5,14 +5,13 @@
 #include "app.h"
 
 void app_t::run() {
+    // Posiciones anteriores del mouse
+    float prior_x = 0;
+    float prior_y = 0;
+    float actual_x = 0;
+    float actual_y = 0;
     while (window.isOpen())
     {
-        // Posiciones anteriores del mouse
-        float prior_x = 0;
-        float prior_y = 0;
-        float actual_x = 0;
-        float actual_y = 0;
-
         sf::Event event{};
         while (window.pollEvent(event))
         {
@@ -28,16 +27,13 @@ void app_t::run() {
                     actual_x = static_cast<float>(event.mouseMove.x);
                     actual_y = static_cast<float>(event.mouseMove.y);
                     for (auto& c: components) {
-                        if (c->is_on_bound(static_cast<float>(event.mouseMove.x),
-                                           static_cast<float>(event.mouseMove.y)))
-                            c->mouse_enter_event({static_cast<float>(event.mouseMove.x),
-                                                  static_cast<float>(event.mouseMove.y)});
+                        if (c->is_on_bound(actual_x, actual_y))
+                            c->mouse_enter_event({actual_x, actual_y});
                         else if (c->is_on_bound(prior_x, prior_y))
-                            c->mouse_leave_event({static_cast<float>(event.mouseMove.x),
-                                                  static_cast<float>(event.mouseMove.y)});
+                            c->mouse_leave_event({actual_x, actual_y});
                     }
-                    prior_x = static_cast<float>(event.mouseMove.x);
-                    prior_y = static_cast<float>(event.mouseMove.y);
+                    prior_x = actual_x;
+                    prior_y = actual_y;
                     break;
                 case sf::Event::MouseButtonPressed:
                     for (auto& c: components)
