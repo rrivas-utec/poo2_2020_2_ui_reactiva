@@ -4,7 +4,7 @@ project(poo2_2020_2_ui_reactiva)
 # Archivos del Projecto
 set(PROJECT_SOURCE
         main.cpp
-        app.cpp app.h component.cpp component.h button.cpp button.h my_app.cpp my_app.h)
+        app.cpp app.h component.cpp component.h button.cpp button.h my_app.cpp my_app.h label.cpp label.h)
 
 # C++ Standard se sugiere 11 o 14
 set(CMAKE_CXX_STANDARD 14)
